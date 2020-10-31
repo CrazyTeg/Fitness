@@ -80,8 +80,7 @@ namespace Fitness.BL.Model
             Weight = weight;
             Height = height;
         }
-
-        public override string ToString()
+public override string ToString()
         {
             return Name;
         }
