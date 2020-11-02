@@ -19,11 +19,11 @@ namespace Fitness.BL.Model
         /// <summary>
         /// Пол.
         /// </summary>
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }  // дыра
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public DateTime BirthDate { get; }
+        public DateTime BirthDate { get; set; }    // дыра
         /// <summary>
         /// Вес.
         /// </summary>
@@ -32,16 +32,24 @@ namespace Fitness.BL.Model
         /// Рост.
         /// </summary>
         public double Height { get; set; }
+        //DateTime nowDate = DateTime.Today;
+        //private int age = nowDate.Year - birthDate.Yaer;
+        //if(birthDate > nowDate.AddYears(-age)) age--;
+        public int Age
+        {
+            get { return DateTime.Now.Year - BirthDate.Year; }
+        }
+
 #endregion
 
-/// <summary>
-/// Создать нового пользователя.
-/// </summary>
-/// <param name="name"> Имя. </param>
-/// <param name="gender"> Пол. </param>
-/// <param name="birthDate"> Дата рождения. </param>
-/// <param name="weight"> Вес. </param>
-/// <param name="height"> Рост. </param>
+        /// <summary>
+        /// Создать нового пользователя.
+        /// </summary>
+        /// <param name="name"> Имя. </param>
+        /// <param name="gender"> Пол. </param>
+        /// <param name="birthDate"> Дата рождения. </param>
+        /// <param name="weight"> Вес. </param>
+        /// <param name="height"> Рост. </param>
         public User(string name, 
                     Gender gender,
                     DateTime birthDate, 
@@ -50,9 +58,6 @@ namespace Fitness.BL.Model
         {
             #region MyRegion Проверка входящих
 
-            
-
-            
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
@@ -82,9 +87,18 @@ namespace Fitness.BL.Model
             Weight = weight;
             Height = height;
         }
-public override string ToString()
+
+        public User(string name)
         {
-            return Name;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
+            }
+            Name = name;
+        }
+        public override string ToString()
+        {
+            return Name + " " + Age;
         }
     }
 }
